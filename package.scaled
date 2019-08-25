@@ -1,0 +1,9 @@
+   name: dart-mode
+ source: git:https://github.com/scaled/dart-mode.git
+version: 1.0
+descrip: Provides language support for Dart.
+ weburl: https://github.com/scaled/dart-mode
+license: New BSD
+ scopts: -deprecation -feature
+ depend: git:https://github.com/scaled/textmate-grammar.git
+ depend: git:https://github.com/scaled/project-service.git
