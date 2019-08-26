@@ -77,9 +77,10 @@ class DartMode (env :Env) extends GrammarCodeMode(env) {
 
   override val commenter = new Commenter() {
     override def linePrefix  = "//"
-    override def blockOpen = "/*"
+    override def blockOpen   = "/*"
     override def blockPrefix = "*"
-    override def blockClose = "*/"
-    override def docOpen   = "/**"
+    override def blockClose  = "*/"
+    override def docOpen     = "///"
+    override def docPrefix   = "///"
   }
 }
