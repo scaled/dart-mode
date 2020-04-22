@@ -51,6 +51,12 @@ class DartGrammarPlugin extends GrammarPlugin {
   )
 }
 
+object DartConfig extends Config.Defs {
+
+  @Var("If true, cases inside switch blocks are indented one step.")
+  val indentCase = key(false)
+}
+
 @Major(name="dart",
        tags=Array("code", "project", "dart"),
        pats=Array(".*\\.dart"),
@@ -61,6 +67,7 @@ class DartMode (env :Env) extends GrammarCodeMode(env) {
   import scaled.util.Chars._
 
   override def langScope = "source.dart"
+  override def configDefs = DartConfig :: super.configDefs
 
   override protected def createIndenter = new BlockIndenter(config, Seq(
     // bump extends/implements in two indentation levels
@@ -70,7 +77,9 @@ class DartMode (env :Env) extends GrammarCodeMode(env) {
     // handle javadoc and block comments
     new BlockIndenter.BlockCommentRule(),
     // handle indenting switch statements properly
-    new BlockIndenter.SwitchRule(),
+    new BlockIndenter.SwitchRule() {
+      override def indentCaseBlocks = config(DartConfig.indentCase)
+    },
     // handle continued statements, with some special sauce for : after case
     new BlockIndenter.CLikeContStmtRule()
   ));
